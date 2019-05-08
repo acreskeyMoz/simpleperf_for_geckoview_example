@@ -27,4 +27,7 @@ This is because simpleperf requires the unstripped shared objects which are not 
 - Alternatively you can use the `report.py` script.  `python report.py --sort dso --symfs binary_cache`
 
 ## Notes
-Simpleperf is a rich tool with many more options, described [here](https://android.googlesource.com/platform/system/extras/+/master/simpleperf/doc/README.md)
+- Simpleperf is a rich tool with many more options, described [here](https://android.googlesource.com/platform/system/extras/+/master/simpleperf/doc/README.md)
+- From the simpleperf tooling: `app_profiler.py isn't supported on Android < N, please switch to use
+                        simpleperf binary directly.`
+
