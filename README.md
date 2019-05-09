@@ -27,7 +27,10 @@ This is because simpleperf requires the unstripped shared objects which are not 
   
 - You can then run `python report_html.py` to generate the html report
 
-- Alternatively you can use the `report.py` script.  `python report.py --sort dso --symfs binary_cache`
+- There are additional scripts which can be useful such as the `report.py` or `report_sample.py`.
+  - Note that these scripts require you to explicitly set the symbol path.
+  - e.g.  `python report.py --sort dso --symfs binary_cache` or `python report_sample.py --symfs binary_cache`
+
 
 ## Notes
 - Simpleperf is a rich tool with many more options, described [here](https://android.googlesource.com/platform/system/extras/+/master/simpleperf/doc/README.md)
