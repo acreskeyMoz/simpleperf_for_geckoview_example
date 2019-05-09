@@ -31,6 +31,11 @@ This is because simpleperf requires the unstripped shared objects which are not 
   - Note that these scripts require you to explicitly set the symbol path.
   - e.g.  `python report.py --sort dso --symfs binary_cache` or `python report_sample.py --symfs binary_cache`
 
+## Exporting to firefox profiler format
+- Randell has made modifications to the simpleperf script `report_sample.py` to export to a format consumable by [profiler.firefox.com](https://profiler.firefox.com).
+- Usage: `python report_sample_gecko.py --symfs binary_cache > firefox.data` and then load `firefox.data` into [profiler.firefox.com](https://profiler.firefox.com). 
+-- e.g. [pageload of reddit](https://perfht.ml/2Vfxs6t)
+
 
 ## Notes
 - Simpleperf is a rich tool with many more options, described [here](https://android.googlesource.com/platform/system/extras/+/master/simpleperf/doc/README.md)
