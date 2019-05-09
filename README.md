@@ -1,4 +1,4 @@
-# Simpleperf for geckoview
+# Simpleperf for geckoview_example
 Scripting to make simpleperf profiling of geckoview_example easier
 
 You will need to build your own geckoview_example from source.
