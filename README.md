@@ -23,7 +23,9 @@ This is because simpleperf requires the unstripped shared objects which are not 
 
 - Once the capture is complete, you will need to copy your unstripped libraries over by running `copy_libs.sh` (as it is, simpleperf will copy the stripped libs right from the android device)
   - simpleperf requires the libraries to be in a specific folder relative to the data file. e.g `binary_cache/data/app/org.mozilla.geckoview_example-1/lib/arm/libxul.so`
-  - After running `copy_libs.sh` verify that the libraries you compiled have been copied to the simpleperf folder. You can ensure that they are unstripped by running `file binary_cache/data/app/org.mozilla.geckoview_example-1/lib/arm/libxul.so`
+  - After running `copy_libs.sh` verify that the libraries you compiled have been copied to the simpleperf `binary_cache` folder for your app.
+  - **Depending on the device and app** you may need to manually copy the unstripped libs to the correct `binary_cache` folder,  e.g. ```binary_cache/data/app/org.mozilla.fenix.debug-cGBgD0-yu6fZrNrmK2DHpw==/lib/arm```
+  - You can ensure that they are unstripped by running `file` on them, e.g. `file binary_cache/data/app/org.mozilla.geckoview_example-1/lib/arm/libxul.so`
   
 - You can then run `python report_html.py` to generate the html report
 
