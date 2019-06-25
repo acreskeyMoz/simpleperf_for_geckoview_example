@@ -26,6 +26,7 @@ This is because simpleperf requires the unstripped shared objects which are not 
   - After running `copy_libs.sh` verify that the libraries you compiled have been copied to the simpleperf `binary_cache` folder for your app.
   - **Depending on the device and app** you may need to manually copy the unstripped libs to the correct `binary_cache` folder,  e.g. ```binary_cache/data/app/org.mozilla.fenix.debug-cGBgD0-yu6fZrNrmK2DHpw==/lib/arm```
   - You can ensure that they are unstripped by running `file` on them, e.g. `file binary_cache/data/app/org.mozilla.geckoview_example-1/lib/arm/libxul.so`
+- **You will need to run `copy_libs.sh` or otherwise ensure that the correct libs are in `binary_cache` _each_ time you capture a profile**
   
 - You can then run `python report_html.py` to generate the html report
 
