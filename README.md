@@ -2,6 +2,14 @@
 Scripting to make simpleperf profiling of geckoview_example easier
 
 You will need to build your own geckoview_example from source.
+i.e.
+```
+./mach build
+./mach package
+./mach android archive-geckoview
+./mach android build-geckoview_example
+./mach android install-geckoview_example
+```
 This is because simpleperf requires the unstripped shared objects which are not kept as build artifacts.
 
 ## Setup
