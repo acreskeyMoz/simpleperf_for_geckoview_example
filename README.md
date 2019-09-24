@@ -49,6 +49,7 @@ This is because simpleperf requires the unstripped shared objects which are not 
 
 
 ## Notes
+- The script `perf_record_extended.sh` has been added which also provides options to capture applink, fenix, and other variations
 - Simpleperf is a rich tool with many more options, described [here](https://android.googlesource.com/platform/system/extras/+/master/simpleperf/doc/README.md)
 - From the simpleperf tooling: "app_profiler.py isn't supported on Android < N, please switch to use
                         simpleperf binary directly."
