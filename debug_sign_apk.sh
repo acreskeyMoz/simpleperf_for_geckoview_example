@@ -13,6 +13,9 @@ set -x
 
 RELEASE="$1"
 DEBUG="debug_sign_apk.apk"
+if [ -n "$2" ] ; then
+    DEBUG="$2"
+fi
 
 # First, we need an AndroidManifest.xml with
 # android:debuggable="true".  This is a lot of effort for just that,
@@ -27,18 +30,22 @@ apktool b -d debug_sign_apk -o $DEBUG
 # manually update our original APK "surgically".  This keeps changes
 # to a minimum, including the order of files in the underlying APK.
 
+unzip -o $DEBUG AndroidManifest.xml
+
+cp $RELEASE $DEBUG
+zip $DEBUG -0 -u AndroidManifest.xml
+zip $DEBUG -d 'META-INF/*'
+
 python mobile/android/debug_sign_tool.py --keytool=`which keytool` --jarsigner=`which jarsigner` $DEBUG
 
-unzip -o $DEBUG AndroidManifest.xml
 unzip -o $DEBUG 'META-INF/*'
 
 mv META-INF/ANDROIDD.SF META-INF/SIGNATURE.SF 
 mv META-INF/ANDROIDD.RSA META-INF/SIGNATURE.RSA
 
 cp $RELEASE $DEBUG
-
-zip $DEBUG -u AndroidManifest.xml
-zip $DEBUG -u META-INF/*
+zip $DEBUG -0 -u AndroidManifest.xml
+zip $DEBUG -0 -u META-INF/*
 
 echo "Now 'adb install $DEBUG' and 'adb shell run-as org.mozilla.firefox' to verify android:debuggable=\"true\"."
 
