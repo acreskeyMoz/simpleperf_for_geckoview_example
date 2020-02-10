@@ -6,6 +6,12 @@
 # sh ./perf_record_extended.sh fenix 15 home (profiles automatic startup of fenix)
 # sh ./perf_record_extended.sh fenix 15 https://google.com/ (profiles automatic applink startup of fenix and browsing to google)
 
+# Fetch unstripped libraries from this directory.
+TOPOBJDIR_ARGS=
+if [ -d "$TOPOBJDIR" ] ; then
+TOPOBJDIR_ARGS=--native_lib_dir $TOPOBJDIR
+fi
+
 TARGET=$1
 COLD_START=1
 FRESH_PROFILE=
@@ -22,21 +28,30 @@ fi
 
 if test "$TARGET" == "fenix"; then
     APP=org.mozilla.fenix.performancetest
+elif test "$TARGET" == "fennec"; then
+    APP=org.mozilla.firefox
 else #elif test "$TARGET" == "gve"; then
     APP=org.mozilla.geckoview_example
 fi
 
 if test "$TARGET" == "fenix"; then
     if test -n "$BROWSE_TO"; then
-	ACTIVITY="-a org.mozilla.fenix.IntentReceiverActivity"
-	LAUNCH=1
+        ACTIVITY="-a org.mozilla.fenix.IntentReceiverActivity"
+        LAUNCH=1
     else
-	ACTIVITY="-a org.mozilla.fenix.HomeActivity"
+        ACTIVITY="-a org.mozilla.fenix.HomeActivity"
+    fi
+elif test "$TARGET" == "fennec"; then
+    if test -n "$BROWSE_TO"; then
+        ACTIVITY="-a org.mozilla.gecko.BrowserApp"
+        LAUNCH=1
+    else
+        ACTIVITY="-a org.mozilla.gecko.BrowserApp"
     fi
 else #elif test "$TARGET" == "gve"; then
     if test -n "$BROWSE_TO"; then
-	ACTIVITY="-a org.mozilla.geckoview_example.IntentReceiverActivity"
-	LAUNCH=1
+        ACTIVITY="-a org.mozilla.geckoview_example.IntentReceiverActivity"
+        LAUNCH=1
     else
         ACTIVITY="-a org.mozilla.geckoview_example.GeckoViewActivity"
     fi
@@ -58,7 +73,7 @@ fi
 
 if test -n "$BROWSE_TO"; then
     if test "$BROWSE_TO" != "home"; then
-	EXTRA="--target $BROWSE_TO"
+        EXTRA="--target $BROWSE_TO"
     fi
 else
     ACTIVITY=
@@ -75,7 +90,7 @@ echo BROWSE_TO = $BROWSE_TO
 # This copies native libs with debug syms to the phone for perf
 # note: if you remove -lib after using it, make sure you remove libs in /data/local/tmp/native_libs/*
 # -lib /home/jesup/src/mozilla/inbound_prof/obj-opt/dist/bin
-python app_profiler.py -p $APP $ACTIVITY $EXTRA --ndk_path ~/.mozbuild/android-ndk-r17b  -r "-f 1000 -g --duration $DURATION"
+python app_profiler.py -p $APP $ACTIVITY $EXTRA --ndk_path ~/.mozbuild/android-ndk-r20 $TOPOBJDIR_ARGS -r "-f 1000 -g --duration $DURATION"
 
 # get all the gecko processes (must be running)
 #export PIDS=`adb shell ps | grep org.mozilla | cut -c 14-19`
