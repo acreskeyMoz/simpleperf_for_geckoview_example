@@ -1,5 +1,5 @@
-# Simpleperf for geckoview_example
-Scripting to make simpleperf profiling of Gecko-based Android Apps_example easier
+# Simpleperf for gecko apps
+Scripting to make simpleperf profiling of Gecko-based Android Apps easier
 
 You will need to use:
 - either a GeckoView-based vehicle from Mozilla that is both
@@ -29,7 +29,7 @@ which are not part of the published Android packages directly.
 - Modify `perf_record.sh` to refer to the correct android-ndk path for
   your workspace and to the correct `$TOPOBJDIR` (if building locally).
 
-- If you are targetting a Mozilla-released vehicle, *debug sign* your
+- If you are targetting a non-debuggable Mozilla-released vehicle, *debug sign* your
   APK using `debug_sign_apk.sh`.
 
 ## Running
