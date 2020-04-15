@@ -44,11 +44,10 @@ def report_sample(record_file, symfs_dir, kallsyms_file, show_tracing_data):
         symbol = lib.GetSymbolOfCurrentSample()
         callchain = lib.GetCallChainOfCurrentSample()
 
-        sec = sample.time / 1000000000
-        usec = (sample.time - sec * 1000000000) / 1000
-        print('%s %d/%d  %d.%d: %d %s:' % (sample.thread_comm,
+        sec = sample.time / 1000000000.0
+        print('%s %d/%d  %.6lf: %d %s:' % (sample.thread_comm,
                                                   sample.pid, sample.tid, sec,
-                                                  usec, sample.period, event.name))
+                                                  sample.period, event.name))
         print('%16x %s (%s)' % (sample.ip, symbol.symbol_name, symbol.dso_name))
         for i in range(callchain.nr):
             entry = callchain.entries[i]
